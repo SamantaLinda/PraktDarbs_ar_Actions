@@ -21,33 +21,32 @@ jobs:
       - uses: actions/checkout@v3.5.2
         with:
          repository: 'mtararujs/python-greetings'
-         path: 'C:\\Users\\Samanta'
-         working-directory: 'C:\\Users\\Samanta'
+         path: 'pip-dependencies'
       - uses: actions/checkout@v3.5.2
       - uses: ./.github/actions/pip-deps
 
-  deploy-to-dev:
-    runs-on: self-hosted
-    needs: [install-pip-deps]
-    steps:
-      - uses: actions/checkout@v3.5.2
-      - uses: ./.github/actions/deploy
-        with:
-          port: 7001
-          environment: 'DEV'
+  # deploy-to-dev:
+  #   runs-on: self-hosted
+  #   needs: [install-pip-deps]
+  #   steps:
+  #     - uses: actions/checkout@v3.5.2
+  #     - uses: ./.github/actions/deploy
+  #       with:
+  #         port: 7001
+  #         environment: 'DEV'
 
-  tests-on-dev:
-    runs-on: self-hosted
-    needs: [deploy-to-dev]
-    steps:
-      - uses: actions/checkout@v3.5.2
-      - uses: actions/checkout@v3.5.2
-        with:
-          repository: 'mtararujs/course-js-api-framework'
-          #path: 'api-tests'
-      - uses: ./.github/actions/test
-        with:
-          environment: 'DEV'
+  # tests-on-dev:
+  #   runs-on: self-hosted
+  #   needs: [deploy-to-dev]
+  #   steps:
+  #     - uses: actions/checkout@v3.5.2
+  #     - uses: actions/checkout@v3.5.2
+  #       with:
+  #         repository: 'mtararujs/course-js-api-framework'
+  #         #path: 'api-tests'
+  #     - uses: ./.github/actions/test
+  #       with:
+  #         environment: 'DEV'
 
   # deploy-to-staging:
   #   runs-on: self-hosted
