@@ -7,15 +7,17 @@ inputs:
     default: "DEV"
 runs:
   using: "composite"
-  working-directory: api-tests
   steps:
     - name: Print output
+      working-directory: api-tests
       run: echo Testing ${{ inputs.test_set }} test on  ${{ inputs.environment }} has started...
       shell: powershell
     - name: Install dependencies
+      working-directory: api-tests
       run: C:\\Users\\Samanta\\AppData\\Roaming\\npm\\npm install
       shell: powershell
     - name: Execute REST API integration tests
+      working-directory: api-tests
       run: C:\\Users\\Samanta\\AppData\\Roaming\\npm\\npm run ${{ inputs.test_set }} ${{ inputs.test_set }}_${{ inputs.environment }}
       shell: powershell
     
