@@ -2,7 +2,7 @@ runs:
   using: "composite"
   steps:
     - name: Install pip dependencies
-      working-directory: 'C:\\Users\\Samanta'
+      working-directory: pip-dependencies
       run: |
         echo Installing pip ...
         C:\\Python311\\Scripts\\pip3 install -r  requirements.txt
