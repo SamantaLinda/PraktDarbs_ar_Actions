@@ -20,6 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3.5.2
       - uses: actions/checkout@v3.5.2
+        
         with:
          repository: 'mtararujs/python-greetings'
          path: 'pip-dependencies'
@@ -30,6 +31,11 @@ jobs:
     needs: [install-pip-deps]
     steps:
       - uses: actions/checkout@v3.5.2
+      - uses: actions/checkout@v3.5.2
+        with:
+          repository: 'mtararujs/python-greetings'
+          path: 'pip-dependencies'
+          clean: false
       - uses: ./.github/actions/deploy
         with:
           port: 7001
@@ -41,9 +47,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3.5.2
       - uses: actions/checkout@v3.5.2
-        #with:
-          #repository: 'mtararujs/course-js-api-framework'
-          #path: 'api-tests'
+        with:
+          repository: 'mtararujs/course-js-api-framework i'
+          path: 'api-tests'
       - uses: ./.github/actions/test
         with:
           environment: 'DEV'
