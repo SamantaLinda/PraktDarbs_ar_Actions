@@ -5,7 +5,7 @@ runs:
       working-directory: pip-dependencies
       run: |
         echo Installing pip ...
+        dir
         C:\\Python311\\Scripts\\pip3 install -r  requirements.txt
-        working-directory: 'C:\\Users\\Samanta'
       shell: powershell
       
