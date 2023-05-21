@@ -1,36 +1,113 @@
-# This is a basic workflow to help you get started with Actions
 
 name: PraktDarbs_ar_Actions
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    runs-on: self-hosted
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3.5.2
+      - uses: ./.github/actions/build
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+  install-pip-deps:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3.5.2
+      - uses: ./.github/actions/build
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+  deploy-to-dev:
+    runs-on: self-hosted
+    needs: [build]
+    steps:
+      - uses: actions/checkout@v3.5.2
+      - uses: ./.github/actions/deploy
+        with:
+          port: 7001
+          environment: 'DEV'
+
+  tests-on-dev:
+    runs-on: self-hosted
+    needs: [deploy-to-dev]
+    steps:
+      - uses: actions/checkout@v3.5.2
+      - uses: actions/checkout@v3.5.2
+        with:
+          repository: 'mtararujs/course-js-api-framework'
+          path: 'api-tests'
+      - uses: ./.github/actions/test
+        with:
+          environment: 'DEV'
+
+  deploy-to-staging:
+    runs-on: self-hosted
+    needs: [tests-on-dev]
+    steps:
+      - uses: actions/checkout@v3.5.2
+      - uses: ./.github/actions/deploy
+        with:
+          port: 7002
+          environment: 'STG'
+
+  tests-on-staging:
+    runs-on: self-hosted
+    needs: [deploy-to-staging]
+    steps:
+      - uses: actions/checkout@v3.5.2
+      - uses: actions/checkout@v3.5.2
+        with:
+          repository: 'mtararujs/course-js-api-framework'
+          path: 'api-tests'
+      - uses: ./.github/actions/test
+        with:
+          environment: 'STG'
+
+  deploy-to-preprod:
+    runs-on: self-hosted
+    needs: [tests-on-staging]
+    steps:
+      - uses: actions/checkout@v3.5.2
+      - uses: ./.github/actions/deploy
+        with:
+          port: 7003
+          environment: 'PrePRD'
+
+  tests-on-preprod:
+    runs-on: self-hosted
+    needs: [deploy-to-preprod]
+    steps:
+      - uses: actions/checkout@v3.5.2
+      - uses: actions/checkout@v3.5.2
+        with:
+          repository: 'mtararujs/course-js-api-framework'
+          path: 'api-tests'
+      - uses: ./.github/actions/test
+        with:
+          environment: 'PrePRD'
+
+  deploy-to-prod:
+    runs-on: self-hosted
+    needs: [tests-on-preprod]
+    steps:
+      - uses: actions/checkout@v3.5.2
+      - uses: ./.github/actions/deploy
+        with:
+          port: 7004
+          environment: 'deploy-to-prod'
+                  
+  tests-on-prod:
+    runs-on: self-hosted
+    needs: [deploy-to-prod]
+    steps:
+      - uses: actions/checkout@v3.5.2
+      - uses: actions/checkout@v3.5.2
+        with:
+          repository: 'mtararujs/course-js-api-framework'
+          path: 'api-tests'
+      - uses: ./.github/actions/test
+        with:
+          environment: 'PRD'
