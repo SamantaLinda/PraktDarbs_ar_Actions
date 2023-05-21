@@ -4,5 +4,5 @@ runs:
     - name: Install pip dependencies
       run: |
         echo Installing pip ...
-        C:\\Python311\\Scripts\\pip install -r  requirements.txt
+        C:\\Python311\\Scripts\\pip3 install -r  requirements.txt
       shell: powershell
