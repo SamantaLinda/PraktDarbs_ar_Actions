@@ -14,7 +14,7 @@ runs:
       shell: powershell
     - name: Install dependencies
       working-directory: pip-dependencies
-      run: npm install
+      run: C:\\Users\\Samanta\\AppData\\Roaming\\npm\\npm install
       shell: powershell
     - name: Delete service
       working-directory: pip-dependencies
