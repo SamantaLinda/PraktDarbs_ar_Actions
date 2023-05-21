@@ -18,7 +18,7 @@ runs:
       shell: powershell
     - name: Delete service
       working-directory: pip-dependencies
-      run: C:\\Users\\Samanta\\AppData\\Roaming\\npm\\pm2 delete "greetings-app-${{ inputs.environment }}" & set "errorlevel=0"
+      run: C:\\Users\\Samanta\\AppData\\Roaming\\npm\\pm2 delete "greetings-app-${{ inputs.environment }}" && set "errorlevel=0"
       shell: powershell
     - name: Start service
       working-directory: pip-dependencies
