@@ -16,19 +16,20 @@ jobs:
 
   install-pip-deps:
     runs-on: self-hosted
+    needs: [build]
     steps:
       - uses: actions/checkout@v3.5.2
       #- uses: ./.github/actions/build
 
   deploy-to-dev:
     runs-on: self-hosted
-    needs: [build]
+    needs: [install-pip-deps]
     steps:
       - uses: actions/checkout@v3.5.2
-      - uses: ./.github/actions/deploy
-        with:
-          port: 7001
-          environment: 'DEV'
+      #- uses: ./.github/actions/deploy
+       # with:
+        #  port: 7001
+        #  environment: 'DEV'
 
   tests-on-dev:
     runs-on: self-hosted
