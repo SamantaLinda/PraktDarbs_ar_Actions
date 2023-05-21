@@ -8,17 +8,20 @@ inputs:
 runs:
   using: "composite"
   steps:
-      working-directory: pip-dependencies
     - name: Print output
+      working-directory: pip-dependencies
       run: echo Deployment to ${{ inputs.environment }} has started...
       shell: powershell
     - name: Install dependencies
+      working-directory: pip-dependencies
       run: npm install
       shell: powershell
     - name: Delete service
+      working-directory: pip-dependencies
       run: C:\\Users\\Samanta\\AppData\\Roaming\\npm\\pm2 delete "greetings-app${{ inputs.environment }}" & EXIT /B 0
       shell: powershell
     - name: Start service
+      working-directory: pip-dependencies
       run: C:\\Users\\Samanta\\AppData\\Roaming\\npm\\pm2 start app.py --name "greetings-app-${{ inputs.environment }}" -- ${{ inputs.port }}
       shell: powershell
     
