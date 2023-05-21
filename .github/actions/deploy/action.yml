@@ -1,0 +1,20 @@
+inputs:
+  port:
+    description: "Specify port for node application to run"
+    default: 7001
+  environment: 
+    description: "Environment for application"
+    default: "DEV"
+runs:
+  using: "composite"
+  steps:
+    - name: Print output
+      run: echo Deployment to ${{ inputs.environment }} has started...
+    - name: Install dependencies
+      run: npm install
+    - name: Delete service
+      run: pm2 delete "greetings-app${{ inputs.environment }}" & EXIT /B 0
+    - name: Start service
+      run: pm2 start app.py --name "greetings-app-${{ inputs.environment }}" -- ${{ inputs.port }}
+
+    
