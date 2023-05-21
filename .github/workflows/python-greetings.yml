@@ -35,7 +35,6 @@ jobs:
         with:
           repository: 'mtararujs/python-greetings'
           path: 'pip-dependencies'
-          #clean: false
       - uses: ./.github/actions/deploy
         with:
           port: 7001
@@ -50,7 +49,7 @@ jobs:
         with:
           repository: 'mtararujs/course-js-api-framework'
           path: 'api-tests'
-          clean: false
+          #clean: false
       - uses: ./.github/actions/test
         with:
           environment: 'DEV'
@@ -64,7 +63,6 @@ jobs:
         with:
           repository: 'mtararujs/python-greetings'
           path: 'pip-dependencies'
-          #clean: false
       - uses: ./.github/actions/deploy
         with:
           port: 7002
@@ -79,53 +77,63 @@ jobs:
         with:
           repository: 'mtararujs/course-js-api-framework'
           path: 'api-tests'
-          clean: false
+          #clean: false
       - uses: ./.github/actions/test
         with:
           environment: 'STG'
 
-  # deploy-to-preprod:
-  #   runs-on: self-hosted
-  #   needs: [tests-on-staging]
-  #   steps:
-  #     - uses: actions/checkout@v3.5.2
-  #     - uses: ./.github/actions/deploy
-  #       with:
-  #         port: 7003
-  #         environment: 'PrePRD'
+  deploy-to-preprod:
+    runs-on: self-hosted
+    needs: [tests-on-staging]
+    steps:
+      - uses: actions/checkout@v3.5.2
+      - uses: actions/checkout@v3.5.2
+        with:
+          repository: 'mtararujs/python-greetings'
+          path: 'pip-dependencies'
+      - uses: ./.github/actions/deploy
+        with:
+          port: 7003
+          environment: 'PrePRD'
 
-  # tests-on-preprod:
-  #   runs-on: self-hosted
-  #   needs: [deploy-to-preprod]
-  #   steps:
-  #     - uses: actions/checkout@v3.5.2
-  #     - uses: actions/checkout@v3.5.2
-  #       with:
-  #         repository: 'mtararujs/course-js-api-framework'
-  #         path: 'api-tests'
-  #     - uses: ./.github/actions/test
-  #       with:
-  #         environment: 'PrePRD'
+  tests-on-preprod:
+    runs-on: self-hosted
+    needs: [deploy-to-preprod]
+    steps:
+      - uses: actions/checkout@v3.5.2
+      - uses: actions/checkout@v3.5.2
+        with:
+          repository: 'mtararujs/course-js-api-framework'
+          path: 'api-tests'
+          #clean: false
+      - uses: ./.github/actions/test
+        with:
+          environment: 'PrePRD'
 
-  # deploy-to-prod:
-  #   runs-on: self-hosted
-  #   needs: [tests-on-preprod]
-  #   steps:
-  #     - uses: actions/checkout@v3.5.2
-  #     - uses: ./.github/actions/deploy
-  #       with:
-  #         port: 7004
-  #         environment: 'PRD'
+  deploy-to-prod:
+    runs-on: self-hosted
+    needs: [tests-on-preprod]
+    steps:
+      - uses: actions/checkout@v3.5.2
+      - uses: actions/checkout@v3.5.2
+        with:
+          repository: 'mtararujs/python-greetings'
+          path: 'pip-dependencies'
+      - uses: ./.github/actions/deploy
+        with:
+          port: 7004
+          environment: 'PRD'
                   
-  # tests-on-prod:
-  #   runs-on: self-hosted
-  #   needs: [deploy-to-prod]
-  #   steps:
-  #     - uses: actions/checkout@v3.5.2
-  #     - uses: actions/checkout@v3.5.2
-  #       with:
-  #         repository: 'mtararujs/course-js-api-framework'
-  #         path: 'api-tests'
-  #     - uses: ./.github/actions/test
-  #       with:
-  #         environment: 'PRD'
+  tests-on-prod:
+    runs-on: self-hosted
+    needs: [deploy-to-prod]
+    steps:
+      - uses: actions/checkout@v3.5.2
+      - uses: actions/checkout@v3.5.2
+        with:
+          repository: 'mtararujs/course-js-api-framework'
+          path: 'api-tests'
+          #clean: false
+      - uses: ./.github/actions/test
+        with:
+          environment: 'PRD'
