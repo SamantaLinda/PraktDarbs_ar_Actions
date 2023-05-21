@@ -3,6 +3,6 @@ runs:
   steps:
     - name: Install pip dependencies
       run: |
-        echo Building of node application is starting...
-         npm install
+        echo Installing pip ...
+        C:\\Python311\\Scripts\\pip install -r requirments.txt
       shell: powershell

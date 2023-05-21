@@ -12,9 +12,9 @@ runs:
       run: echo Testing ${{ inputs.test_set }} test on  ${{ inputs.environment }} has started...
       shell: powershell
     - name: Install dependencies
-      run: npm install
+      run: C:\\Users\\Samanta\\AppData\\Roaming\\npm\\npm install
       shell: powershell
     - name: Execute REST API integration tests
-      run: npm run ${{ inputs.test_set }} ${{ inputs.test_set }}_${{ inputs.environment }}
+      run: C:\\Users\\Samanta\\AppData\\Roaming\\npm\\npm run ${{ inputs.test_set }} ${{ inputs.test_set }}_${{ inputs.environment }}
       shell: powershell
     
