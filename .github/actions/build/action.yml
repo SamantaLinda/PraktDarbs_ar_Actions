@@ -4,5 +4,5 @@ runs:
     - name: Install dependencies
       run: |
         echo Building of node application is starting...
-        npm install
+        C:\\Program Files\\nodejs\\npm install
       shell: powershell
