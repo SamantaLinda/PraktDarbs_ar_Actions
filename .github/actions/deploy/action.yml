@@ -8,6 +8,7 @@ inputs:
 runs:
   using: "composite"
   steps:
+      working-directory: pip-dependencies
     - name: Print output
       run: echo Deployment to ${{ inputs.environment }} has started...
       shell: powershell
