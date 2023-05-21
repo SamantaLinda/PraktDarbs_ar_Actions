@@ -2,8 +2,10 @@ runs:
   using: "composite"
   steps:
     - name: Install pip dependencies
+      working-directory: 'C:\\Users\\Samanta'
       run: |
         echo Installing pip ...
         C:\\Python311\\Scripts\\pip3 install -r  requirements.txt
+        working-directory: 'C:\\Users\\Samanta'
       shell: powershell
-      #kkghg
+      
