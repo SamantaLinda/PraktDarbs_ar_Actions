@@ -12,13 +12,13 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3.5.2
-      - uses: ./.github/actions/build
+      #- uses: ./.github/actions/build
 
   install-pip-deps:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3.5.2
-      - uses: ./.github/actions/build
+      #- uses: ./.github/actions/build
 
   deploy-to-dev:
     runs-on: self-hosted
@@ -39,19 +39,19 @@ jobs:
         with:
           repository: 'mtararujs/course-js-api-framework'
           path: 'api-tests'
-      - uses: ./.github/actions/test
-        with:
-          environment: 'DEV'
+      #- uses: ./.github/actions/test
+       # with:
+         # environment: 'DEV'
 
   deploy-to-staging:
     runs-on: self-hosted
     needs: [tests-on-dev]
     steps:
       - uses: actions/checkout@v3.5.2
-      - uses: ./.github/actions/deploy
-        with:
-          port: 7002
-          environment: 'STG'
+      #- uses: ./.github/actions/deploy
+      #  with:
+        #  port: 7002
+         # environment: 'STG'
 
   tests-on-staging:
     runs-on: self-hosted
@@ -62,19 +62,19 @@ jobs:
         with:
           repository: 'mtararujs/course-js-api-framework'
           path: 'api-tests'
-      - uses: ./.github/actions/test
-        with:
-          environment: 'STG'
+      #- uses: ./.github/actions/test
+       # with:
+        #  environment: 'STG'
 
   deploy-to-preprod:
     runs-on: self-hosted
     needs: [tests-on-staging]
     steps:
       - uses: actions/checkout@v3.5.2
-      - uses: ./.github/actions/deploy
-        with:
-          port: 7003
-          environment: 'PrePRD'
+     # - uses: ./.github/actions/deploy
+       # with:
+        #  port: 7003
+        #  environment: 'PrePRD'
 
   tests-on-preprod:
     runs-on: self-hosted
@@ -85,19 +85,19 @@ jobs:
         with:
           repository: 'mtararujs/course-js-api-framework'
           path: 'api-tests'
-      - uses: ./.github/actions/test
-        with:
-          environment: 'PrePRD'
+     # - uses: ./.github/actions/test
+       # with:
+        #  environment: 'PrePRD'
 
   deploy-to-prod:
     runs-on: self-hosted
     needs: [tests-on-preprod]
     steps:
       - uses: actions/checkout@v3.5.2
-      - uses: ./.github/actions/deploy
-        with:
-          port: 7004
-          environment: 'deploy-to-prod'
+     # - uses: ./.github/actions/deploy
+      #  with:
+       #   port: 7004
+        #  environment: 'deploy-to-prod'
                   
   tests-on-prod:
     runs-on: self-hosted
@@ -108,6 +108,6 @@ jobs:
         with:
           repository: 'mtararujs/course-js-api-framework'
           path: 'api-tests'
-      - uses: ./.github/actions/test
-        with:
-          environment: 'PRD'
+     # - uses: ./.github/actions/test
+      #  with:
+        #  environment: 'PRD'
