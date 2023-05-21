@@ -7,5 +7,5 @@ runs:
         echo Installing pip ...
         dir
         C:\\Python311\\Scripts\\pip3 install -r  requirements.txt
-      shell: powershell
+      shell: cmd
       
